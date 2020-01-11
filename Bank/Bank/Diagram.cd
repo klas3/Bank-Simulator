@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bank.Bank">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAAAEAAAAAAAAAAAIAAAAAACAAAAQAAAAAAA=</HashCode>
+      <FileName>UI\Bank.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Program" Collapsed="true">
+    <Position X="3.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Collections.AccountsCollection">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAACAAIAAAA=</HashCode>
+      <FileName>Collections\AccountsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Collections.CardsCollection">
+    <Position X="0.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collections\CardsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Collections.CustomersCollection">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAACAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Collections\CustomersCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Collections.RecordsCollection">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAABAA=</HashCode>
+      <FileName>Collections\RecordsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Other.Record">
+    <Position X="3.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEAAAAAAAAQEAAAAAQAAAAAAABAAAAAAAgIAAAA=</HashCode>
+      <FileName>Other\Record.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Other.Customer">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAACAAAKAEAEACEAEgAAIAAEAAAAAAABAAAAA=</HashCode>
+      <FileName>Other\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Cards.Card">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAgAIAiAExEgCAAAEAAAAAhAAAAAAAAgAAAA=</HashCode>
+      <FileName>Cards\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Cards.CreditCard">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABQAAgABAAgABAAQAAAEAAAAgAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Cards\CreditCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Cards.PaymentsCard">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\PaymentsCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Accounts.Account">
+    <Position X="11.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAAAAERggAAAAEAAAAABAAAIAAEFAAAAA=</HashCode>
+      <FileName>Accounts\Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Accounts.DepositAccount">
+    <Position X="16.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAEEAAAAA=</HashCode>
+      <FileName>Accounts\DepositAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank.Accounts.SavingAccount">
+    <Position X="16.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAGEAAAAA=</HashCode>
+      <FileName>Accounts\SavingAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Bank.Cards.ICard" Collapsed="true">
+    <Position X="19.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cards\ICard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
