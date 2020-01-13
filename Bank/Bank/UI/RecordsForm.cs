@@ -20,11 +20,9 @@ namespace Bank.Forms
 
         private void RecordsForm_Load(object sender, EventArgs e)
         {
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
-            foreach (KeyValuePair<int, Record> element in records.GetDictionary())
+            foreach (KeyValuePair<int, Record> element in records.Records)
             {
                 if (element.Value.CustomerId == customerId)
                 {

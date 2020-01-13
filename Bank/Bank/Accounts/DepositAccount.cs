@@ -8,11 +8,7 @@ namespace Bank.Accounts
     {
         public DateTime DayForWithdraw { get; private set; }
 
-        public DepositAccount(int customerId)
-        {
-            this.CustomerId = customerId;
-            this.Balance = 0;
-        }
+        public DepositAccount(int customerId) : base(customerId) { }
 
         public override void RefillCard(float count, Card card)
         {

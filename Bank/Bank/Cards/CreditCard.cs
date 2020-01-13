@@ -6,20 +6,18 @@ namespace Bank.Cards
 {
     sealed class CreditCard : Card
     {
+        private const float startBalance = 100;
+
         private DateTime creditDate;
         private DateTime creditTerm;
 
-        public float MaxCreditTakingCount { get; private set; }
+        public float MaxCreditTakingCount { get; private set; } = 5000;
         public bool IsCredit { get; private set; }
         public float LastCreditSum { get; private set; }
-        public float CreditAccount { get; private set; }
 
-        public CreditCard(int customerId)
+        public CreditCard(int customerId) : base(customerId, startBalance)
         {
-            this.CustomerId = customerId;
             this.IsCredit = false;
-            this.CreditAccount = 100;
-            this.MaxCreditTakingCount = 5000;
         }
 
         public void PayCredit()
@@ -28,7 +26,7 @@ namespace Bank.Cards
             {
                 if(Balance - LastCreditSum >= 0)
                 {
-                    Balance -= LastCreditSum;
+                    Withdraw(LastCreditSum);
                     IsCredit = false;
 
                     PayCreditNotifier?.Invoke(this, EventArgs.Empty);

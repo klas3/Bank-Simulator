@@ -8,6 +8,6 @@ namespace Bank.Exceptions
 {
     class SameItemsTransactionException : Exception
     {
-        public SameItemsTransactionException() : base(message: "Вы переводите деньги ежду 2 одинаковыми элементами!") { }
+        public SameItemsTransactionException() : base(message: "Вы переводите деньги между 2 одинаковыми элементами!") { }
     }
 }

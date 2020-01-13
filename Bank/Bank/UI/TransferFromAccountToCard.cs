@@ -8,6 +8,8 @@ namespace Bank.Forms
 {
     partial class TransferFromAccountToCard : Form
     {
+        private const string UnexistingCardMessage = "Введенной карты не существует!";
+
         private Bank bank;
         private DepositAccount depositAccount;
         private SavingAccount savingAccount;
@@ -46,14 +48,16 @@ namespace Bank.Forms
                         {
                             depositAccount.RefillCardNotifier += OnRefillCard;
                             depositAccount.RefillCard(sum, card);
-                            bank.CreateRecord("Перевод со счета на карту.", sum, depositAccount.Balance, depositAccount.CustomerId);
-                            depositAccount.RefillCardNotifier -= OnRefillCard;
+                            bank.CreateRecord(RecordsCommentsConfig.AccountToCardComment, sum, depositAccount.Balance, depositAccount.CustomerId);
+
+                            this.Close();
                         }
                         catch(Exception exception)
                         {
-                            depositAccount.RefillCardNotifier -= OnRefillCard;
                             MessageBox.Show(exception.Message);
                         }
+
+                        depositAccount.RefillCardNotifier -= OnRefillCard;
                     }
                     else
                     {
@@ -61,26 +65,27 @@ namespace Bank.Forms
                         {
                             savingAccount.RefillCardNotifier += OnRefillCard;
                             savingAccount.RefillCard(sum, card);
-                            bank.CreateRecord("Перевод со счета на карту.", sum, savingAccount.Balance, savingAccount.CustomerId);
-                            savingAccount.RefillCardNotifier -= OnRefillCard;
+                            bank.CreateRecord(RecordsCommentsConfig.AccountToCardComment, sum, savingAccount.Balance, savingAccount.CustomerId);
+
+                            this.Close();
                         }
                         catch (Exception exception)
                         {
-                            savingAccount.RefillCardNotifier -= OnRefillCard;
                             MessageBox.Show(exception.Message);
                         }
-                    }
 
-                    this.Close();
+
+                        savingAccount.RefillCardNotifier -= OnRefillCard;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Введенной карты не существует!");
+                    MessageBox.Show(UnexistingCardMessage);
                 }
             }
             else
             {
-                MessageBox.Show("Неправильно введена сумма для перевода!");
+                MessageBox.Show(Config.IncorrectSumMessage);
             }
         }
 
@@ -91,9 +96,7 @@ namespace Bank.Forms
 
         private void TransferFromAccountToCard_Load(object sender, EventArgs e)
         {
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
         }
     }
 }

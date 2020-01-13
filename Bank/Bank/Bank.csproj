@@ -56,7 +56,9 @@
     <Compile Include="Accounts\Account.cs" />
     <Compile Include="Accounts\DepositAccount.cs" />
     <Compile Include="Accounts\SavingAccount.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="EventArguments\TransferFromCardToCardEventArgs.cs" />
+    <Compile Include="RecordsCommentsConfig.cs" />
     <Compile Include="UI\Bank.cs" />
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\CreditCard.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="UI\DepositAccountForm.Designer.cs">
       <DependentUpon>DepositAccountForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms.cs" />
     <Compile Include="UI\Login.cs">
       <SubType>Form</SubType>
     </Compile>

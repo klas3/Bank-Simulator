@@ -6,6 +6,9 @@ namespace Bank.Forms
 {
     partial class DepositAccountForm : Form
     {
+        private const string dontHaveDepositMessage = "вы не имеете депозита!";
+        private const string defaultDataString = "1/1/0001 12:00:00 AM";
+
         private DepositAccount account;
         private Bank bank;
 
@@ -21,7 +24,9 @@ namespace Bank.Forms
             pictureBox1.ImageLocation = "https://cdn.discordapp.com/attachments/615120043646124057/635493739498045470/Account.png";
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            if (account.DayForWithdraw.ToString() == "1/1/0001 12:00:00 AM") label2.Text = "вы не имеете депозита!";
+            button3 = Forms.NormalizeBackButton(button3);
+
+            if (account.DayForWithdraw.ToString() == defaultDataString) label2.Text = dontHaveDepositMessage;
             else label2.Text = account.DayForWithdraw.ToString();
 
             label5.Text = account.Balance.ToString();
@@ -31,23 +36,13 @@ namespace Bank.Forms
         private void Button1_Click(object sender, EventArgs e)
         {
             Form form = new Transfer(account, bank);
-
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
+            Forms.LoadForm(form, this);
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             Form form = new TransferFromAccountToCard(account, bank);
-
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
+            Forms.LoadForm(form, this);
         }
 
         private void Button3_Click(object sender, EventArgs e)

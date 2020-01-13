@@ -9,13 +9,27 @@ namespace Bank.Accounts
     {
         private static int count = 1;
 
-        public int AccountId { get; private set; }
-        public float Balance { get; protected set; }
-        public int CustomerId { get; protected set; }
+        private const float startBalance = 0;
 
-        public Account()
+        public int AccountId { get; private set; }
+        public int CustomerId { get; private set; }
+        public float Balance { get; private set; }
+
+        public Account(int customerId)
         {
             this.AccountId = count;
+            this.CustomerId = customerId;
+            this.Balance = startBalance;
+
+            count++;
+        }
+
+        public Account(int customerId, float balance)
+        {
+            this.AccountId = count;
+            this.CustomerId = customerId;
+            this.Balance = balance;
+
             count++;
         }
 

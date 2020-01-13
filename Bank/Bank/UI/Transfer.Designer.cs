@@ -32,9 +32,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.TransfetButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.accountNumber = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -70,17 +70,17 @@
             this.label1.TabIndex = 63;
             this.label1.Text = "Номер счета";
             // 
-            // button1
+            // TransfetButton
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.button1.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(319, 303);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(168, 56);
-            this.button1.TabIndex = 62;
-            this.button1.Text = "Перечислить";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.TransfetButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.TransfetButton.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TransfetButton.Location = new System.Drawing.Point(319, 303);
+            this.TransfetButton.Name = "TransfetButton";
+            this.TransfetButton.Size = new System.Drawing.Size(168, 56);
+            this.TransfetButton.TabIndex = 62;
+            this.TransfetButton.Text = "Перечислить";
+            this.TransfetButton.UseVisualStyleBackColor = false;
+            this.TransfetButton.Click += new System.EventHandler(this.Button1_Click);
             // 
             // textBox2
             // 
@@ -95,16 +95,16 @@
             this.textBox2.Size = new System.Drawing.Size(203, 38);
             this.textBox2.TabIndex = 61;
             // 
-            // textBox1
+            // accountNumber
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(150, 200);
-            this.textBox1.MaxLength = 50;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(203, 38);
-            this.textBox1.TabIndex = 60;
+            this.accountNumber.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.accountNumber.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.accountNumber.Location = new System.Drawing.Point(150, 200);
+            this.accountNumber.MaxLength = 50;
+            this.accountNumber.Multiline = true;
+            this.accountNumber.Name = "accountNumber";
+            this.accountNumber.Size = new System.Drawing.Size(203, 38);
+            this.accountNumber.TabIndex = 60;
             // 
             // button3
             // 
@@ -128,9 +128,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TransfetButton);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.accountNumber);
             this.Controls.Add(this.label3);
             this.Name = "Transfer";
             this.Text = "Transfer";
@@ -145,9 +145,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button TransfetButton;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox accountNumber;
         private System.Windows.Forms.Button button3;
     }
 }

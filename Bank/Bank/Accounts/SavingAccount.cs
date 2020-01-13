@@ -7,18 +7,19 @@ namespace Bank.Accounts
 {
     sealed class SavingAccount : Account
     {
+        private const float startBalance = 100;
+        private const int maxWithdrawCountForMonth = 6;
+
         public int WithdrawCountForMonth { get; private set; }
 
-        public SavingAccount(int customerId)
+        public SavingAccount(int customerId) : base(customerId, startBalance)
         {
-            this.Balance = 100;
             this.WithdrawCountForMonth = 0;
-            this.CustomerId = customerId;
         }
 
         public override void RefillCard(float count, Card card)
         {
-            if (WithdrawCountForMonth < 6)
+            if (WithdrawCountForMonth < maxWithdrawCountForMonth)
             {
                 base.RefillCard(count, card);
                 WithdrawCountForMonth++;
@@ -31,7 +32,7 @@ namespace Bank.Accounts
 
         public override void RefillAnotherAccount(Account accountForRefill, float count)
         {
-            if (WithdrawCountForMonth < 6)
+            if (WithdrawCountForMonth < maxWithdrawCountForMonth)
             {
                 base.RefillAnotherAccount(accountForRefill, count);
                 WithdrawCountForMonth++;

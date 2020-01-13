@@ -6,6 +6,8 @@ namespace Bank.Forms
 {
     public partial class Login : Form
     {
+        private const string wrongDataMessage = "Неправильно введенные даные!";
+
         private Bank bank;
 
         public Login()
@@ -22,30 +24,18 @@ namespace Bank.Forms
             if (customer != null)
             {
                 Form mainMenu = new MainMenu(this, customer, bank);
-
-                mainMenu.Location = this.Location;
-                mainMenu.StartPosition = FormStartPosition.Manual;
-                mainMenu.FormClosing += delegate { this.Show(); };
-                mainMenu.Show();
-
-                this.Hide();
+                Forms.LoadForm(mainMenu, this);
             }
             else
             {
-                MessageBox.Show("Wrond data!");
+                MessageBox.Show(wrongDataMessage);
             }
         }
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Form registerForm = new Register(bank, this);
-
-            registerForm.Location = this.Location;
-            registerForm.StartPosition = FormStartPosition.Manual;
-            registerForm.FormClosing += delegate { this.Show(); };
-            registerForm.Show();
-
-            this.Hide();
+            Forms.LoadForm(registerForm, this);
         }
     }
 }

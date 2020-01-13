@@ -6,6 +6,10 @@ namespace Bank.Forms
 {
     partial class Register : Form
     {
+        private const string wrongNameMessage = "Неверено введено имя!";
+        private const string wrongAgeMessage = "Неверно введен возраст!";
+        private const string unfilledFieldsMessage = "Вы не заполнили все поля!";
+
         private Bank bank;
         private Form prevForm;
 
@@ -28,7 +32,7 @@ namespace Bank.Forms
 
             if(textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "")
             {
-                if (int.TryParse(textBox2.Text, out age) || age < 0)
+                if (int.TryParse(textBox2.Text, out age) && age > 0)
                 {
                     if (!int.TryParse(textBox1.Text, out name))
                     {
@@ -36,27 +40,21 @@ namespace Bank.Forms
                         bank.Customers.AddCustomer(customer);
 
                         Form mainMenu = new MainMenu(this, customer, bank);
-
-                        mainMenu.Location = this.Location;
-                        mainMenu.StartPosition = FormStartPosition.Manual;
-                        mainMenu.FormClosing += delegate { this.Show(); };
-                        mainMenu.Show();
-
-                        this.Hide();
+                        Forms.LoadForm(mainMenu, this);
                     }
                     else
                     {
-                        MessageBox.Show("Неверено введено имя!");
+                        MessageBox.Show(wrongNameMessage);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Неверно введен возраст!");
+                    MessageBox.Show(wrongAgeMessage);
                 }
             }
             else
             {
-                MessageBox.Show("Вы не заполнили все поля!");
+                MessageBox.Show(unfilledFieldsMessage);
             }
         }
     }

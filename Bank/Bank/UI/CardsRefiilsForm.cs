@@ -10,6 +10,9 @@ namespace Bank.Forms
 {
     partial class CardsRefiilsForm : Form
     {
+        private const string chooseAnotherCardMessage = "Выберите другую карту для перечисления!";
+        private const string wrongCardChooseMessage = "Неправильно выбраны карты!";
+
         private (CreditCard, SavingAccount, PaymentsCard) cards;
         private Customer customer;
         private Bank bank;
@@ -29,9 +32,7 @@ namespace Bank.Forms
 
         private void CardsRefiilsForm_Load(object sender, EventArgs e)
         {
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
             if (cards.Item1 != null)
             {
@@ -49,6 +50,7 @@ namespace Bank.Forms
         private void Button1_Click(object sender, EventArgs e)
         {
             int sum;
+
             CardsCollection collection = bank.Cards;
             Card cardFrom = collection.GetCardByNumber(comboBox1.Text);
             Card cardTo = collection.GetCardByNumber(comboBox2.Text);
@@ -63,31 +65,31 @@ namespace Bank.Forms
                         {
                             customer.TransferFromCardToCardNotifier += OnTransferFromCardToCard;
                             customer.TransferFromCardToCard(cardFrom, cardTo, sum);
-                            bank.CreateRecord("Перевод на другую карту.", sum, cardFrom.Balance, cardFrom.CustomerId);
-                            customer.TransferFromCardToCardNotifier -= OnTransferFromCardToCard;
+                            bank.CreateRecord(RecordsCommentsConfig.CardToCardComemnt, sum, cardFrom.Balance, cardFrom.CustomerId);
+
+                            this.Close();
                         }
                         catch (Exception exception)
                         {
-                            customer.TransferFromCardToCardNotifier -= OnTransferFromCardToCard;
                             MessageBox.Show(exception.Message);
                         }
+
+                        customer.TransferFromCardToCardNotifier -= OnTransferFromCardToCard;
                     }
                     else
                     {
-                        MessageBox.Show("Неправильно выбраны карты!");
+                        MessageBox.Show(wrongCardChooseMessage);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Неверно введена сумма для перевода!");
+                    MessageBox.Show(Config.IncorrectSumMessage);
                 }
             }
             else
             {
-                MessageBox.Show("Выберите другую карту для перечисления!");
+                MessageBox.Show(chooseAnotherCardMessage);
             }
-
-            this.Close();
         }
 
         private void Button3_Click(object sender, EventArgs e)

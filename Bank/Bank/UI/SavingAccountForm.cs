@@ -21,9 +21,7 @@ namespace Bank.Forms
             pictureBox1.ImageLocation = "https://cdn.discordapp.com/attachments/615120043646124057/635493739498045470/Account.png";
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
             label5.Text = account.Balance.ToString();
             label6.Text = account.AccountId.ToString();
@@ -33,12 +31,7 @@ namespace Bank.Forms
         private void Button1_Click(object sender, EventArgs e)
         {
             Form form = new Transfer(account, bank);
-
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
+            Forms.LoadForm(form, this);
         }
 
         private void Button2_Click(object sender, EventArgs e)

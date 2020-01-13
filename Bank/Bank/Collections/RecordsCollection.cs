@@ -6,28 +6,23 @@ namespace Bank.Collections
 {
     sealed class RecordsCollection
     {
-        public Dictionary<int, Record> records;
+        public Dictionary<int, Record> Records { get; private set; }
 
         public RecordsCollection()
         {
-            this.records = new Dictionary<int, Record>();
-        }
-
-        public Dictionary<int, Record> GetDictionary()
-        {
-            return records;
+            this.Records = new Dictionary<int, Record>();
         }
 
         public void AddRecord(Record record)
         {
-            records.Add(record.RecordId, record);
+            Records.Add(record.RecordId, record);
         }
 
         public ListBox FillTextBoxByID(int id)
         {
             ListBox result = new ListBox();
 
-            foreach(KeyValuePair<int, Record> element in records)
+            foreach(KeyValuePair<int, Record> element in Records)
             {
                 if(element.Value.CustomerId == id)
                 {

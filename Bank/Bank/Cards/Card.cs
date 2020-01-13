@@ -8,22 +8,35 @@ namespace Bank.Cards
     {
         private static int count = 1;
 
-        private int startBalance = 100;
+        private const int startBalance = 0;
 
-        public float Balance { get; protected set; }
         public int CardId { get; private set; }
         public bool IsBlocked { get; private set; }
         public string Number { get; private set; }
-        public int CustomerId { get; protected set; }
         public int Pin { get; private set; }
+        public int CustomerId { get; private set; }
+        public float Balance { get; private set; }
 
-        public Card()
+        public Card(int customerId)
         {
             this.IsBlocked = false;
             this.Pin = GeneratePin();
             this.Number = GenerateNumber();
             this.CardId = count;
+            this.CustomerId = customerId;
             this.Balance = startBalance;
+
+            count++;
+        }
+
+        public Card(int customerId, float balance)
+        {
+            this.IsBlocked = false;
+            this.Pin = GeneratePin();
+            this.Number = GenerateNumber();
+            this.CardId = count;
+            this.CustomerId = customerId;
+            this.Balance = balance;
 
             count++;
         }

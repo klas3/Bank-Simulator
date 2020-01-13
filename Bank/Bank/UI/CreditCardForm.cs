@@ -6,6 +6,8 @@ namespace Bank.Forms
 {
     partial class CreditCardForm : Form
     {
+        private const string succesfullPayingCreditMessage = "Вы успешно выплатили кредит!";
+
         private CreditCard card;
         private Bank bank;
 
@@ -23,7 +25,7 @@ namespace Bank.Forms
 
         private void OnPayCredit(object sender, EventArgs e)
         {
-            MessageBox.Show("Вы успешно выплатили кредит!");
+            MessageBox.Show(succesfullPayingCreditMessage);
         }
 
         private void CreditCardForm_Load(object sender, EventArgs e)
@@ -31,24 +33,26 @@ namespace Bank.Forms
             pictureBox1.ImageLocation = "http://vkarasenko.ru/wp-content/uploads/bank-karta-maket-400x282.png";
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
             label5.Text = card.Balance.ToString();
             label6.Text = card.CardId.ToString();
             label7.Text = card.Number;
+
+            if(card.IsBlocked)
+            {
+                linkLabel3.Text = Config.BlockedCardStatusString;
+            }
+            else
+            {
+                linkLabel3.Text = Config.UnblockedCardStatusString;
+            }
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Form form = new TakingCredit(card, bank, card.CustomerId);
-
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
+            Form form = new TakingCredit(card, bank);
+            Forms.LoadForm(form, this);
         }
 
         private void LinkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -57,13 +61,13 @@ namespace Bank.Forms
 
             if(card.IsBlocked)
             {
-                linkLabel3.Text = "true";
-                MessageBox.Show("Карта была успешно заблокирована!");
+                linkLabel3.Text = Config.BlockedCardStatusString;
+                MessageBox.Show(Config.BlockedCardMessage);
             }
             else
             {
-                linkLabel3.Text = "false";
-                MessageBox.Show("Ваша карта была успешно разблокирована!");
+                linkLabel3.Text = Config.UnblockedCardStatusString;
+                MessageBox.Show(Config.UnblockedCardMessage);
             }
         }
 

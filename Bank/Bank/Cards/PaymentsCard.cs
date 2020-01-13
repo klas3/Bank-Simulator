@@ -8,10 +8,7 @@ namespace Bank.Cards
     {
         public DepositAccount DepositAccount { get; private set; }
 
-        public PaymentsCard(int customerId)
-        {
-            this.CustomerId = customerId;
-        }
+        public PaymentsCard(int customerId) : base(customerId) { }
 
         public void AssignDepositAccount(DepositAccount account)
         {

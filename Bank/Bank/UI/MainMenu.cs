@@ -9,6 +9,14 @@ namespace Bank.Forms
 {
     partial class MainMenu : Form
     {
+        private const string yearRestrictionMessage = "Вы не достигли 18 лет, чтобы создать ";
+        private const string existingItemMessage = "Вы уже имете ";
+        private const string creditCardString = "кредитную карту.";
+        private const string paymentsCardString = "дебетовую карту.";
+        private const string savingAccountString = "сберегательный счет";
+
+        private const int requiredCustomerAge = 18;
+
         private Bank bank;
         private Form prevForm;
         private Customer customer;
@@ -23,23 +31,12 @@ namespace Bank.Forms
             this.bank = bank;
         }
 
-        private void LoadForm(Form form)
-        {
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
-        }
-
         private void MainMenu_Load(object sender, EventArgs e)
         {
             pictureBox1.ImageLocation = "https://img.icons8.com/plasticine/2x/user.png";
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
 
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
             (string, string, string, string) info = customer.GetInfo();
 
@@ -49,17 +46,17 @@ namespace Bank.Forms
 
             if (cardsAndAccounts.Item1 == null)
             {
-                linkLabel2.Text = "создать";
+                linkLabel2.Text = Config.DisplayingUnexistingItemString;
             }
 
             if (cardsAndAccounts.Item2 == null)
             {
-                linkLabel3.Text = "создать";
+                linkLabel3.Text = Config.DisplayingUnexistingItemString;
             }
 
             if (cardsAndAccounts.Item3 == null)
             {
-                linkLabel4.Text = "создать";
+                linkLabel4.Text = Config.DisplayingUnexistingItemString;
             }
         }
 
@@ -76,31 +73,31 @@ namespace Bank.Forms
             if (cardsAndAccounts.Item1 != null)
             {
                 form = new CreditCardForm(cardsAndAccounts.Item1, bank);
-                LoadForm(form);
+                Forms.LoadForm(form, this);
             }
             else
             {
-                if (customer.Age >= 18)
+                if (customer.Age >= requiredCustomerAge)
                 {
                     CreditCard card = new CreditCard(customer.Id);
                     bank.Cards.AddCard(card);
 
                     form = new Waiting();
-                    LoadForm(form);
+                    Forms.LoadForm(form, this);
 
                     try
                     {
                         customer.AssignCreditCard(card);
-                        linkLabel2.Text = "информация";
+                        linkLabel2.Text = Config.DisplayingExistingItemString;
                     }
                     catch(ExistingItemException)
                     {
-                        MessageBox.Show("Вы уже имете кредитную карту банка!");
+                        MessageBox.Show(existingItemMessage + creditCardString);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Вы не достигли 18 лет, чтобы создать кредитную карту!");
+                    MessageBox.Show(yearRestrictionMessage + creditCardString);
                 }
             }
         }
@@ -124,15 +121,15 @@ namespace Bank.Forms
                 try
                 {
                     customer.AssignPaymentsCard(card);
-                    linkLabel3.Text = "информация";
+                    linkLabel3.Text = Config.DisplayingExistingItemString;
                 }
                 catch(ExistingItemException)
                 {
-                    MessageBox.Show("Вы уже имете дебетовую карту банка!");
+                    MessageBox.Show(existingItemMessage + paymentsCardString);
                 }
             }
 
-            LoadForm(form);
+            Forms.LoadForm(form, this);
         }
 
         private void LinkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -143,31 +140,31 @@ namespace Bank.Forms
             if (cardsAndAccounts.Item2 != null)
             {
                 form = new SavingAccountForm(cardsAndAccounts.Item2, bank);
-                LoadForm(form);
+                Forms.LoadForm(form, this);
             }
             else
             {
-                if (customer.Age >= 18)
+                if (customer.Age >= requiredCustomerAge)
                 {
                     SavingAccount account = new SavingAccount(customer.Id);
                     bank.Accounts.AddAccount(account);
 
                     form = new Waiting();
-                    LoadForm(form);
+                    Forms.LoadForm(form, this);
 
                     try
                     {
                         customer.AssignSavingAccount(account);
-                        linkLabel4.Text = "информация";
+                        linkLabel4.Text = Config.DisplayingExistingItemString;
                     }
                     catch(ExistingItemException)
                     {
-                        MessageBox.Show("Вы уже имеете сберегательный счет банка!");
+                        MessageBox.Show(existingItemMessage + savingAccountString);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Вы не достигли 18 лет, чтобы создать сберегательный счет!");
+                    MessageBox.Show(yearRestrictionMessage + savingAccountString);
                 }
             }
         }
@@ -175,13 +172,13 @@ namespace Bank.Forms
         private void Button1_Click(object sender, EventArgs e)
         {
             Form form = new RecordsForm(bank.Records, customer.Id);
-            LoadForm(form);
+            Forms.LoadForm(form, this);
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             Form form = new CardsRefiilsForm(customer, bank);
-            LoadForm(form);
+            Forms.LoadForm(form, this);
         }
 
         private void Button3_Click(object sender, EventArgs e)

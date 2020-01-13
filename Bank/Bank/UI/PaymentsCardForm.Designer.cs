@@ -140,12 +140,12 @@
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel3.LinkColor = System.Drawing.SystemColors.ScrollBar;
-            this.linkLabel3.Location = new System.Drawing.Point(241, 172);
+            this.linkLabel3.Location = new System.Drawing.Point(225, 172);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(42, 21);
+            this.linkLabel3.Size = new System.Drawing.Size(148, 21);
             this.linkLabel3.TabIndex = 84;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "false";
+            this.linkLabel3.Text = "не заблокирована";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel3_LinkClicked);
             // 
             // label8

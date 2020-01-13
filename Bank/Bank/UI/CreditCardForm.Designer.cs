@@ -151,10 +151,10 @@
             this.linkLabel3.LinkColor = System.Drawing.SystemColors.ScrollBar;
             this.linkLabel3.Location = new System.Drawing.Point(215, 132);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(42, 21);
+            this.linkLabel3.Size = new System.Drawing.Size(148, 21);
             this.linkLabel3.TabIndex = 86;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "false";
+            this.linkLabel3.Text = "не заблокирована";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel3_LinkClicked);
             // 
             // label8

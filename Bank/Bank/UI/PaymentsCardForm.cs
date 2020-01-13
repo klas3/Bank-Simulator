@@ -2,11 +2,14 @@
 using System.Windows.Forms;
 using Bank.Cards;
 using Bank.Accounts;
+using Bank.Exceptions;
 
 namespace Bank.Forms
 {
     partial class PaymentsCardForm : Form
     {
+        private const string existingDepositAccountMessage = "Вы уже имеете депозитный счет!";
+
         private PaymentsCard card;
         private Bank bank;
         private int customerId;
@@ -19,23 +22,12 @@ namespace Bank.Forms
             customerId = id;
         }
 
-        private void LoadForm(Form form)
-        {
-            form.Location = this.Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { this.Show(); };
-            form.Show();
-            this.Hide();
-        }
-
         private void CreditCardForm_Load(object sender, EventArgs e)
         {
             pictureBox1.ImageLocation = "http://vkarasenko.ru/wp-content/uploads/bank-karta-maket-400x282.png";
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
 
             label9.Text = card.Balance.ToString();
             label6.Text = card.CardId.ToString();
@@ -43,7 +35,16 @@ namespace Bank.Forms
             
             if(card.DepositAccount == null)
             {
-                linkLabel1.Text = "создать";
+                linkLabel1.Text = Config.DisplayingUnexistingItemString;
+            }
+
+            if (card.IsBlocked)
+            {
+                linkLabel3.Text = Config.BlockedCardStatusString;
+            }
+            else
+            {
+                linkLabel3.Text = Config.UnblockedCardStatusString;
             }
         }
 
@@ -54,12 +55,6 @@ namespace Bank.Forms
             if (card.DepositAccount != null)
             {
                 form = new DepositAccountForm(card.DepositAccount, bank);
-
-                form.Location = this.Location;
-                form.StartPosition = FormStartPosition.Manual;
-                form.FormClosing += delegate { this.Show(); };
-                form.Show();
-                this.Hide();
             }
             else
             {
@@ -71,15 +66,15 @@ namespace Bank.Forms
                 try
                 {
                     card.AssignDepositAccount(account);
-                    linkLabel1.Text = "информация";
+                    linkLabel1.Text = Config.DisplayingExistingItemString;
                 }
-                catch
+                catch(ExistingItemException)
                 {
-                    MessageBox.Show("Вы уже имеете депозитный счет!");
+                    MessageBox.Show(existingDepositAccountMessage);
                 }
             }
 
-            LoadForm(form);
+            Forms.LoadForm(form, this);
         }
 
         private void LinkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -88,13 +83,13 @@ namespace Bank.Forms
 
             if (card.IsBlocked)
             {
-                linkLabel3.Text = "true";
-                MessageBox.Show("Карта была успешно заблокирована!");
+                linkLabel3.Text = Config.BlockedCardStatusString;
+                MessageBox.Show(Config.BlockedCardMessage);
             }
             else
             {
-                linkLabel3.Text = "false";
-                MessageBox.Show("Ваша карта была успешно разблокирована!");
+                linkLabel3.Text = Config.UnblockedCardStatusString;
+                MessageBox.Show(Config.UnblockedCardMessage);
             }
         }
 

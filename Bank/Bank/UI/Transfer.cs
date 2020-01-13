@@ -8,6 +8,10 @@ namespace Bank.Forms
 {
     partial class Transfer : Form
     {
+        private const string wrongAccountNumberMessage = "Такого счета не существует!";
+        private const string wrongFilledNumberMessage = "Неправильно введенный номер счета!";
+        private const string sameItemsTransactionExceptionMessage = "Укажите другой счет для перевода!";
+
         private Account account;
         private Bank bank;
 
@@ -28,7 +32,7 @@ namespace Bank.Forms
             int sum;
             int id;
 
-            if(int.TryParse(textBox1.Text, out id))
+            if(int.TryParse(accountNumber.Text, out id))
             {
                 Account accountForRefill = bank.Accounts.GetAccountById(id);
 
@@ -40,40 +44,34 @@ namespace Bank.Forms
                         {
                             account.RefillAnotherAccountNotifier += OnRefillAnotherAccount;
                             account.RefillAnotherAccount(accountForRefill, int.Parse(textBox2.Text));
-                            bank.CreateRecord("Перевод средств на другой счет.", sum, account.Balance, account.CustomerId);
-                            account.RefillAnotherAccountNotifier -= OnRefillAnotherAccount;
+                            bank.CreateRecord(RecordsCommentsConfig.AccountToAccountComment, sum, account.Balance, account.CustomerId);
 
                             this.Close();
                         }
                         catch(SameItemsTransactionException)
                         {
-                            account.RefillAnotherAccountNotifier -= OnRefillAnotherAccount;
-                            MessageBox.Show("Укажите другой счет для перевода!");
+                            MessageBox.Show(sameItemsTransactionExceptionMessage);
                         }
-                        catch(MoneyWithdrawBeforeTermException exception)
+                        catch(Exception exception)
                         {
-                            account.RefillAnotherAccountNotifier -= OnRefillAnotherAccount;
                             MessageBox.Show(exception.Message);
                         }
-                        catch(InsufficientMoneyAmountException exception)
-                        {
-                            account.RefillAnotherAccountNotifier -= OnRefillAnotherAccount;
-                            MessageBox.Show(exception.Message);
-                        }
+
+                        account.RefillAnotherAccountNotifier -= OnRefillAnotherAccount;
                     }
                     else
                     {
-                        MessageBox.Show("Неправильно введенная сумма!");
+                        MessageBox.Show(Config.IncorrectSumMessage);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Такого счета не существует!");
+                    MessageBox.Show(wrongAccountNumberMessage);
                 }
             }
             else
             {
-                MessageBox.Show("Неправильно введенный номер счета!");
+                MessageBox.Show(wrongFilledNumberMessage);
             }
         }
 
@@ -84,9 +82,7 @@ namespace Bank.Forms
 
         private void Transfer_Load(object sender, EventArgs e)
         {
-            button3.TabStop = false;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
+            button3 = Forms.NormalizeBackButton(button3);
         }
     }
 }

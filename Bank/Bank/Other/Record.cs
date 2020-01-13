@@ -28,7 +28,7 @@ namespace Bank.Other
 
         public override string ToString()
         {
-            return $"{recordDate.ToString()}; {recordComment}; Changing sum: {sumChange}; Current sum: {currentBalance};";
+            return $"{recordDate.ToString()}; {recordComment}; Сумма изменения: {sumChange}; Текущая сумма: {currentBalance};";
         }
     }
 }
