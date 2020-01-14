@@ -1,5 +1,4 @@
-﻿using System;
-using Bank.Cards;
+﻿using Bank.Cards;
 
 namespace Bank.EventArguments
 {

@@ -57,7 +57,10 @@
     <Compile Include="Accounts\DepositAccount.cs" />
     <Compile Include="Accounts\SavingAccount.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="EPaymentsMeans.cs" />
     <Compile Include="EventArguments\TransferFromCardToCardEventArgs.cs" />
+    <Compile Include="Exceptions\UnexistingItemException.cs" />
+    <Compile Include="PaymentsMean.cs" />
     <Compile Include="RecordsCommentsConfig.cs" />
     <Compile Include="UI\Bank.cs" />
     <Compile Include="Cards\Card.cs" />

@@ -5,30 +5,24 @@ using Bank.EventArguments;
 
 namespace Bank.Accounts
 {
-    abstract class Account
+    abstract class Account : PaymentsMean
     {
         private static int count = 1;
 
         private const float startBalance = 0;
 
         public int AccountId { get; private set; }
-        public int CustomerId { get; private set; }
-        public float Balance { get; private set; }
 
-        public Account(int customerId)
+        public Account(int customerId) : base(customerId, startBalance)
         {
             this.AccountId = count;
-            this.CustomerId = customerId;
-            this.Balance = startBalance;
 
             count++;
         }
 
-        public Account(int customerId, float balance)
+        public Account(int customerId, float balance) : base(customerId, balance)
         {
             this.AccountId = count;
-            this.CustomerId = customerId;
-            this.Balance = balance;
 
             count++;
         }

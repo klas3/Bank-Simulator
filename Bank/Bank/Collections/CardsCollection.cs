@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bank.Cards;
+using Bank.Exceptions;
 
 namespace Bank.Collections
 {
@@ -14,7 +15,26 @@ namespace Bank.Collections
 
         public void AddCard(Card card)
         {
-            cards.Add(card.CardId, card);
+            if(!cards.ContainsKey(card.CardId))
+            {
+                cards.Add(card.CardId, card);
+            }
+            else
+            {
+                throw new ExistingItemException();
+            }
+        }
+
+        public void RemoveCard(int cardId)
+        {
+            if(cards.ContainsKey(cardId))
+            {
+                cards.Remove(cardId);
+            }
+            else
+            {
+                throw new UnexistingItemException();
+            }
         }
 
         public Card GetCardByNumber(string number)

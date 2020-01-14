@@ -1,7 +1,6 @@
 ﻿using System;
 using Bank.Accounts;
 using Bank.Cards;
-using Bank.Exceptions;
 using Bank.EventArguments;
 
 namespace Bank.Other
@@ -32,39 +31,42 @@ namespace Bank.Other
             cutomersCount++;
         }
 
-        public void AssignCreditCard(CreditCard card)
+        public void AssignPaymentsMean(PaymentsMean mean, PaymentsMeans type)
         {
-            if(creditCard == null)
+            if(mean != null)
             {
-                creditCard = card;
+                if(type == PaymentsMeans.CreditCard)
+                {
+                    creditCard = (CreditCard)mean;
+                }
+                else if(type == PaymentsMeans.PaymentsCard)
+                {
+                    paymentsCard = (PaymentsCard)mean;
+                }
+                else if(type == PaymentsMeans.SavingAccount)
+                {
+                    savingAccount = (SavingAccount)mean;
+                }
             }
             else
             {
-                throw new ExistingItemException();
+                throw new NullReferenceException();
             }
         }
 
-        public void AssignPaymentsCard(PaymentsCard card)
+        public void UnassignPaymentsMean(PaymentsMeans type)
         {
-            if (paymentsCard == null)
+            if (type == PaymentsMeans.CreditCard)
             {
-                paymentsCard = card;
+                creditCard = null;
             }
-            else
+            else if (type == PaymentsMeans.PaymentsCard)
             {
-                throw new ExistingItemException();
+                paymentsCard = null;
             }
-        }
-
-        public void AssignSavingAccount(SavingAccount account)
-        {
-            if (savingAccount == null)
+            else if (type == PaymentsMeans.SavingAccount)
             {
-                savingAccount = account;
-            }
-            else
-            {
-                throw new ExistingItemException();
+                savingAccount = null;
             }
         }
 

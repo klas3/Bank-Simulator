@@ -10,10 +10,11 @@ namespace Bank.Forms
     partial class MainMenu : Form
     {
         private const string yearRestrictionMessage = "Вы не достигли 18 лет, чтобы создать ";
-        private const string existingItemMessage = "Вы уже имете ";
+        private const string existingItemMessage = "Такое платежное средство уже существует!";
         private const string creditCardString = "кредитную карту.";
         private const string paymentsCardString = "дебетовую карту.";
         private const string savingAccountString = "сберегательный счет";
+        private const string nullReferenceExceptionMessage = "Платежное средсвто не было предоставлено для назначения!";
 
         private const int requiredCustomerAge = 18;
 
@@ -79,20 +80,24 @@ namespace Bank.Forms
             {
                 if (customer.Age >= requiredCustomerAge)
                 {
-                    CreditCard card = new CreditCard(customer.Id);
-                    bank.Cards.AddCard(card);
-
                     form = new Waiting();
                     Forms.LoadForm(form, this);
 
                     try
                     {
-                        customer.AssignCreditCard(card);
+                        CreditCard card = new CreditCard(customer.Id);
+                        bank.Cards.AddCard(card);
+
+                        customer.AssignPaymentsMean(card, PaymentsMeans.CreditCard);
                         linkLabel2.Text = Config.DisplayingExistingItemString;
                     }
                     catch(ExistingItemException)
                     {
-                        MessageBox.Show(existingItemMessage + creditCardString);
+                        MessageBox.Show(existingItemMessage);
+                    }
+                    catch(NullReferenceException)
+                    {
+                        MessageBox.Show(nullReferenceExceptionMessage);
                     }
                 }
                 else
@@ -110,26 +115,31 @@ namespace Bank.Forms
             if (cardsAndAccounts.Item3 != null)
             {
                 form = new PaymentsCardForm(cardsAndAccounts.Item3, bank, customer.Id);
+                Forms.LoadForm(form, this);
             }
             else
             {
-                PaymentsCard card = new PaymentsCard(customer.Id);
-                bank.Cards.AddCard(card);
-
                 form = new Waiting();
+                Forms.LoadForm(form, this);
 
                 try
                 {
-                    customer.AssignPaymentsCard(card);
+                    PaymentsCard card = new PaymentsCard(customer.Id);
+                    bank.Cards.AddCard(card);
+
+                    customer.AssignPaymentsMean(card, PaymentsMeans.PaymentsCard);
                     linkLabel3.Text = Config.DisplayingExistingItemString;
+                    
                 }
-                catch(ExistingItemException)
+                catch (ExistingItemException)
                 {
-                    MessageBox.Show(existingItemMessage + paymentsCardString);
+                    MessageBox.Show(existingItemMessage);
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show(nullReferenceExceptionMessage);
                 }
             }
-
-            Forms.LoadForm(form, this);
         }
 
         private void LinkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -146,20 +156,24 @@ namespace Bank.Forms
             {
                 if (customer.Age >= requiredCustomerAge)
                 {
-                    SavingAccount account = new SavingAccount(customer.Id);
-                    bank.Accounts.AddAccount(account);
-
                     form = new Waiting();
                     Forms.LoadForm(form, this);
 
                     try
                     {
-                        customer.AssignSavingAccount(account);
+                        SavingAccount account = new SavingAccount(customer.Id);
+                        bank.Accounts.AddAccount(account);
+
+                        customer.AssignPaymentsMean(account, PaymentsMeans.SavingAccount);
                         linkLabel4.Text = Config.DisplayingExistingItemString;
                     }
                     catch(ExistingItemException)
                     {
-                        MessageBox.Show(existingItemMessage + savingAccountString);
+                        MessageBox.Show(existingItemMessage);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show(nullReferenceExceptionMessage);
                     }
                 }
                 else

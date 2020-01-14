@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Bank.Other;
+using Bank.Exceptions;
 
 namespace Bank.Forms
 {
@@ -9,6 +10,7 @@ namespace Bank.Forms
         private const string wrongNameMessage = "Неверено введено имя!";
         private const string wrongAgeMessage = "Неверно введен возраст!";
         private const string unfilledFieldsMessage = "Вы не заполнили все поля!";
+        private const string existingCustomerExceptionMessage = "Такой клиет уже существует!";
 
         private Bank bank;
         private Form prevForm;
@@ -36,11 +38,18 @@ namespace Bank.Forms
                 {
                     if (!int.TryParse(textBox1.Text, out name))
                     {
-                        Customer customer = new Customer(textBox1.Text, textBox4.Text, textBox3.Text, age);
-                        bank.Customers.AddCustomer(customer);
+                        try
+                        {
+                            Customer customer = new Customer(textBox1.Text, textBox4.Text, textBox3.Text, age);
+                            bank.Customers.AddCustomer(customer);
 
-                        Form mainMenu = new MainMenu(this, customer, bank);
-                        Forms.LoadForm(mainMenu, this);
+                            Form mainMenu = new MainMenu(this, customer, bank);
+                            Forms.LoadForm(mainMenu, this);
+                        }
+                        catch(ExistingItemException)
+                        {
+                            MessageBox.Show(existingCustomerExceptionMessage);
+                        }
                     }
                     else
                     {

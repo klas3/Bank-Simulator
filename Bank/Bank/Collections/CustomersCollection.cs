@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Bank.Other;
+using Bank.Exceptions;
 
 namespace Bank.Collections
 {
@@ -10,6 +11,30 @@ namespace Bank.Collections
         public CustomersCollection()
         {
             this.customers = new Dictionary<int, Customer>();
+        }
+
+        public void AddCustomer(Customer customer)
+        {
+            if(!customers.ContainsKey(customer.Id))
+            {
+                customers.Add(customer.Id, customer);
+            }
+            else
+            {
+                throw new ExistingItemException();
+            }
+        }
+
+        public void RemoveCustomer(int customerId)
+        {
+            if(customers.ContainsKey(customerId))
+            {
+                customers.Remove(customerId);
+            }
+            else
+            {
+                throw new UnexistingItemException();
+            }
         }
 
         public Customer GetCustomer(string email)
@@ -23,11 +48,6 @@ namespace Bank.Collections
             }
 
             return null;
-        }
-
-        public void AddCustomer(Customer customer)
-        {
-            customers.Add(customer.Id, customer);
         }
     }
 }

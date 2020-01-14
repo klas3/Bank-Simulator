@@ -4,7 +4,7 @@ using Bank.EventArguments;
 
 namespace Bank.Cards
 {
-    abstract partial class Card
+    abstract class Card : PaymentsMean
     {
         private static int count = 1;
 
@@ -14,29 +14,23 @@ namespace Bank.Cards
         public bool IsBlocked { get; private set; }
         public string Number { get; private set; }
         public int Pin { get; private set; }
-        public int CustomerId { get; private set; }
-        public float Balance { get; private set; }
 
-        public Card(int customerId)
+        public Card(int customerId) : base(customerId, startBalance)
         {
             this.IsBlocked = false;
             this.Pin = GeneratePin();
             this.Number = GenerateNumber();
             this.CardId = count;
-            this.CustomerId = customerId;
-            this.Balance = startBalance;
 
             count++;
         }
 
-        public Card(int customerId, float balance)
+        public Card(int customerId, float balance) : base(customerId, balance)
         {
             this.IsBlocked = false;
             this.Pin = GeneratePin();
             this.Number = GenerateNumber();
             this.CardId = count;
-            this.CustomerId = customerId;
-            this.Balance = balance;
 
             count++;
         }
